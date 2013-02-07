@@ -10,7 +10,7 @@ our @EXPORT_OK = qw(csv_build csv_parse);
 
 =head1 NAME
 
-Text::CSV::Easy_PP - Easy CSV parsing and building implemented in Perl
+Text::CSV::Easy_PP - Easy CSV parsing and building implemented in PurePerl
 
 =head1 SYNOPSIS
 
@@ -97,6 +97,8 @@ sub csv_parse {
 =over 4
 
 =item L<Text::CSV>
+
+=item L<Text::CSV::Easy>
 
 =item L<Text::CSV::Easy_XS>
 
