@@ -56,10 +56,10 @@ BEGIN {
     }
 
     no strict 'refs';
-    for (keys %{ $MODULE . '::' }) {
+    for ( keys %{ $MODULE . '::' } ) {
 
-        if (defined &{ "${MODULE}::$_" }) {
-            my $ref = \&{ "${MODULE}::$_" };
+        if ( defined &{"${MODULE}::$_"} ) {
+            my $ref = \&{"${MODULE}::$_"};
             my $obj = svref_2object($ref);
             next unless $obj->isa('B::CV') && $obj->GV->STASH->NAME eq $MODULE;
             *$_ = $ref;
