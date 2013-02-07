@@ -1,9 +1,15 @@
+.gitignore
 Changes
-lib/Text/CSV/Easy.pm
+MANIFEST
 Makefile.PL
-MANIFEST			This list of files
 README
+ignore.txt
+lib/Text/CSV/Easy.pm
+lib/Text/CSV/Easy_PP.pm
 t/00-load.t
+t/easy.t
 t/manifest.t
 t/pod-coverage.t
 t/pod.t
+t/pp_csv_build.t
+t/pp_csv_parse.t
