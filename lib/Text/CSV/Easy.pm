@@ -12,11 +12,11 @@ Text::CSV::Easy - easy csv parsing and building
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 our @EXPORT_OK = qw(csv_build csv_parse);
 
@@ -46,9 +46,9 @@ If you need to use a literal quote ("), escape it with another quote:
 my $MODULE;
 
 BEGIN {
-    my $xs_loaded = eval { require Text::CSV_XS::Easy; 1 };
+    my $xs_loaded = eval { require Text::CSV::Easy_XS; 1 };
     if ($xs_loaded) {
-        $MODULE = 'Text::CSV_XS::Easy';
+        $MODULE = 'Text::CSV::Easy_XS';
     }
     else {
         $MODULE = 'Text::CSV::Easy_PP';
