@@ -17,28 +17,16 @@ cmp_deeply(
 cmp_deeply( [ csv_parse(q{1,2,3}) ], [ 1, 2, 3 ], 'simple integers' );
 
 eval { csv_parse(q{one}) };
-like(
-    $@,
-    qr/invalid line: one/,
-    'correct exception for unquoted string'
-);
+like( $@, qr/invalid line: one/, 'correct exception for unquoted string' );
 
 eval { csv_parse(q{1one}) };
-like(
-    $@,
-    qr/invalid line: 1one/,
-    'exception for string in numeric field'
-);
+like( $@, qr/invalid line: 1one/, 'exception for string in numeric field' );
 
 cmp_deeply( [ csv_parse(q{"one","two","three"}) ],
     [qw( one two three )], 'quoted strings' );
 
 eval { csv_parse(q{"one","two,}) };
-like(
-    $@,
-    qr/invalid line: "one","two,/,
-    'exception for unterminated string'
-);
+like( $@, qr/invalid line: "one","two,/, 'exception for unterminated string' );
 
 cmp_deeply(
     [ csv_parse(q{"one","two ""2""","three"}) ],

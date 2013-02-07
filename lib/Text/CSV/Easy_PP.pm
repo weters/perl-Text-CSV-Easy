@@ -45,11 +45,11 @@ sub csv_build {
     my @fields = @_;
     return join ',', map {
         if (/^\d+$/) {
-            $_
+            $_;
         }
         else {
-            (my $str = $_) =~ s/"/""/g;
-            qq{"$str"}
+            ( my $str = $_ ) =~ s/"/""/g;
+            qq{"$str"};
         }
     } @fields;
 }
@@ -61,7 +61,7 @@ Parses a CSV string. Returns a list of fields it found. This subroutine will rai
 =cut
 
 sub csv_parse {
-    my ( $str ) = @_;
+    my ($str) = @_;
 
     return () unless $str;
 
@@ -69,14 +69,15 @@ sub csv_parse {
 
     my @fields;
     while ( $str =~ / (?:^|,) (?: "(.*?)"(?=,|$) | (\d*)(?=,|$) ) /xsg ) {
-        my $field = ($1 || $2) || undef; 
+        my $field = ( $1 || $2 ) || undef;
 
-        croak( "invalid line: $str" ) if pos($str) > $last_pos + length($&) + ( $last_pos != 0 ? 1 : 0 );
+        croak("invalid line: $str")
+          if pos($str) > $last_pos + length($&) + ( $last_pos != 0 ? 1 : 0 );
         $last_pos = pos($str);
 
         if ($field) {
             if ( $field =~ /(?<!")"(?!")/ ) {
-                croak( "quote is not properly escaped" );
+                croak("quote is not properly escaped");
             }
 
             $field =~ s/""/"/g;
@@ -84,7 +85,7 @@ sub csv_parse {
         push @fields, $field;
     }
 
-    croak( "invalid line: $str" ) if $last_pos != length($str);
+    croak("invalid line: $str") if $last_pos != length($str);
 
     return @fields;
 }
