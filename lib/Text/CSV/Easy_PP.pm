@@ -12,14 +12,6 @@ our @EXPORT_OK = qw(csv_build csv_parse);
 
 Text::CSV::Easy_PP - Easy CSV parsing and building implemented in Perl
 
-=head1 VERSION
-
-Version 0.01
-
-=cut
-
-our $VERSION = '0.01';
-
 =head1 SYNOPSIS
 
   use Text::CSV::Easy_PP qw(csv_build csv_parse);
