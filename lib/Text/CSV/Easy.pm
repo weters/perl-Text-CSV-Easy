@@ -41,6 +41,10 @@ If you need to use a literal quote ("), escape it with another quote:
 
     "one","some ""quoted"" string"
 
+There is also a difference between an empty string and an undefined value:
+
+    "",                 ( '', undef )
+
 =cut
 
 my $MODULE;
