@@ -21,4 +21,11 @@ is(
     'utf-8 ok'
 );
 
+is( csv_build( undef, '' ), q{,""}, 'undef and empty' );
+is(
+    encode_utf8( csv_build( "utf-8", "check ✓" ) ),
+    encode_utf8(q{"utf-8","check ✓"}),
+    'utf-8 ok'
+);
+
 done_testing();
