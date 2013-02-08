@@ -1,5 +1,12 @@
 Revision history for Text-CSV-Easy
 
+0.03    2013-02-07
+        Better handles empty strings and undef values. 
+        Adds tests to ensure XS and PP compatability.
+
+0.02    2013-02-06
+        Minor changes.
+
 0.01    2013-02-06
         First version, released on an unsuspecting world.
 
