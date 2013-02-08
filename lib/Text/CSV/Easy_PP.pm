@@ -44,7 +44,10 @@ Takes a list of fields and will generate a csv string. This subroutine will rais
 sub csv_build {
     my @fields = @_;
     return join ',', map {
-        if (/^\d+$/) {
+        if ( !defined ) {
+            '';
+        }
+        elsif (/^\d+$/) {
             $_;
         }
         else {
@@ -69,10 +72,12 @@ sub csv_parse {
 
     my @fields;
     while ( $str =~ / (?:^|,) (?: "(.*?)"(?=,|$) | (\d*)(?=,|$) ) /xsg ) {
-        my $field = ( $1 || $2 ) || undef;
+        my $field = $1 || $2;
+        $field ||= ( $& =~ /^,?""$/ ? "" : undef );
 
         croak("invalid line: $str")
           if pos($str) > $last_pos + length($&) + ( $last_pos != 0 ? 1 : 0 );
+
         $last_pos = pos($str);
 
         if ($field) {

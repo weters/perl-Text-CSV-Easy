@@ -40,6 +40,12 @@ cmp_deeply(
     'complex line'
 );
 
+cmp_deeply(
+    [ csv_parse(qq{"",,"",}) ],
+    [ '', undef, '', undef ],
+    'undef and empty values'
+);
+
 eval { csv_parse(q{"one","two"3}) };
 like( $@, qr/invalid line: "one","two"3/, 'exception for invalid string' );
 
