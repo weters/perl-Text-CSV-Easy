@@ -13,3 +13,4 @@ t/pod-coverage.t
 t/pod.t
 t/pp_csv_build.t
 t/pp_csv_parse.t
+t/xs_pp_comparision.t
