@@ -87,26 +87,32 @@ sub csv_parse {
     my @fields;
     while (
         $str =~ / (?:^|,) 
-          (?: ""
-            | ([^",\n]*)
-            | "(.*?)(?<![^"]")"
+          (?: ""                # don't want a capture group here
+            | "(.*?)(?<![^"]")" # find quote which isn't being escaped
+            | ([^",\n]*)        # try to match an unquoted field
           )
-          (?:\n(?=$)|) (?=,|$) /xsg
+          (?:\n(?=$)|)          # allow a trailing newline only
+          (?=,|$) /xsg
       )
     {
         my $field = $1 || $2;
+
+        # if we don't have a value, we have either an undef or an empty string.
+        # "" will be an empty string, otherwise it should be undef.
         $field ||= ( $& =~ /^,?""$/ ? "" : undef );
 
+       # track the pos($str) to ensure each field happends immediately after the
+       # previous match. also, account for a leading comma when $last_pos != 0
         croak("invalid line: $str")
           if pos($str) > $last_pos + length($&) + ( $last_pos != 0 ? 1 : 0 );
 
         $last_pos = pos($str);
 
         if ($field) {
-            if ( $field =~ /(?<!")"(?!")/ ) {
-                croak("quote is not properly escaped");
-            }
+            croak("quote is not properly escaped")
+              if ( $field =~ /(?<!")"(?!")/ );
 
+            # unescape the quotes.
             $field =~ s/""/"/g;
         }
         push @fields, $field;

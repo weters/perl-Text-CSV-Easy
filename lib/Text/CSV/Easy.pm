@@ -12,11 +12,11 @@ Text::CSV::Easy - Easy CSV parsing and building
 
 =head1 VERSION
 
-Version 0.50
+Version 0.51
 
 =cut
 
-our $VERSION = '0.50';
+our $VERSION = '0.51';
 
 our @EXPORT_OK = qw(csv_build csv_parse);
 
@@ -106,6 +106,12 @@ sub module { return $MODULE }
 1;
 
 __END__
+
+=head1 TCE_VERSION
+
+Version 2
+
+The TCE_VERSION ensures that the XS and PP versions of Text::CSV::Easy are consistent.
 
 =head1 SEE ALSO
 
