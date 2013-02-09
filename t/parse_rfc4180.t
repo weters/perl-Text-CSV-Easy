@@ -14,6 +14,7 @@ test_values(
     q{"abc","""def""","ghi"}     => [qw( abc "def" ghi )],
     q{1,2,3}                     => [qw( 1 2 3 )],
     qq{abc,def\n}                => [qw( abc def )],
+    qq{abc,"def"\n}              => [qw( abc def )],
     q{abc , def , ghi}           => [ 'abc ', ' def ', ' ghi' ],
     q{abc,def,"g, ""h"", and i"} => [ 'abc', 'def', 'g, "h", and i' ],
     q{,""} => [ undef, '' ],
