@@ -20,6 +20,10 @@ our $VERSION = '0.4';
 
 our @EXPORT_OK = qw(csv_build csv_parse);
 
+# used to ensure XS and PP stay in sync.
+our $TCE_VERSION;
+BEGIN { $TCE_VERSION = 1 }
+
 =head1 SYNOPSIS
 
  use Text::CSV::Easy qw( csv_build csv_parse );
@@ -51,7 +55,7 @@ my $MODULE;
 
 BEGIN {
     my $xs_loaded = eval { require Text::CSV::Easy_XS; 1 };
-    if ($xs_loaded) {
+    if ( $xs_loaded && $Text::CSV::Easy_XS::TCE_VERSION == $TCE_VERSION ) {
         $MODULE = 'Text::CSV::Easy_XS';
     }
     else {
