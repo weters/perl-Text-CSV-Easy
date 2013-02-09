@@ -5,10 +5,10 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile(
     NAME             => 'Text::CSV::Easy',
-    AUTHOR           => q{Tom Peters <tpeters@synacor.com>},
+    AUTHOR           => q{Tom Peters <weters@me.com>},
     VERSION_FROM     => 'lib/Text/CSV/Easy.pm',
     ABSTRACT_FROM    => 'lib/Text/CSV/Easy.pm',
-    LICENSE          => 'Artistic_2_0',
+    LICENSE          => 'perl',
     PL_FILES         => {},
     MIN_PERL_VERSION => 5.010,
     CONFIGURE_REQUIRES => {
