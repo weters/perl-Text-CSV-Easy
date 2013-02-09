@@ -33,12 +33,7 @@ sub test_values {
     my %tests = @_;
     while ( my ( $csv, $expects ) = each %tests ) {
         ( my $csv_clean = $csv ) =~ s/\n/\\n/g;
-        my $tmp =
-          cmp_deeply( [ csv_parse($csv) ], $expects, "$csv_clean parses" );
-        if ( !$tmp ) {
-            use Data::Dumper;
-            warn Dumper [ csv_parse($csv) ];
-        }
+        cmp_deeply( [ csv_parse($csv) ], $expects, "$csv_clean parses" );
     }
 }
 
