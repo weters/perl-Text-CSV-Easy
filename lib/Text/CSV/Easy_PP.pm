@@ -21,27 +21,37 @@ Text::CSV::Easy_PP - Easy CSV parsing and building implemented in PurePerl
 
 =head1 DESCRIPTION
 
-Text::CSV::Easy_PP is a simple module for parsing and building simple CSV fields.
+Text::CSV::Easy_PP is a simple module for parsing and building CSV lines. This module is written in PurePerl. For a faster alternative, see L<Text::CSV::Easy_XS>. Either way, you should just be able to use L<Text::CSV::Easy> directly and it will determine which version to use.
 
-Integers do not need to be quoted, but strings must be quoted:
+This module conforms to RFC 4180 (L<http://tools.ietf.org/html/rfc4180>) for both parsing and building of CSV lines.
 
-    1,"two","three"     OK
-    "1","two","three"   OK
-    1,two,three         NOT OK
+=over 4
 
-If you need to use a literal quote ("), escape it with another quote:
+=item 1. Use commas to separate fields. Spaces will be considered part of the field.
 
-    "one","some ""quoted"" string"
+ abc,def, ghi        => ( 'abc', 'def', ' ghi' )
 
-There is also a difference between an empty string and an undefined value:
+=item 2. You may enclose fields in quotes.
 
-    "",                 ( '', undef )
+ "abc","def"         => ( 'abc', 'def' )
+
+=item 3. If your field contains a line break, a comma, or a quote, you need to enclose it in quotes. A quote should be escaped with another quote.
+
+ "a,b","a\nb","a""b" => ( 'a,b', "a\nb", 'a"b' )
+
+=item 4. A trailing newline is acceptable.
+
+ abc,def\n           => ( 'abc', 'def' )
+
+=back
+
+When building a string using csv_build, all non-numeric strings will always be enclosed in quotes.
 
 =head1 SUBROUTINES
 
 =head2 csv_build( List @fields ) : Str
 
-Takes a list of fields and will generate a csv string. This subroutine will raise an exception if any errors occur.
+Takes a list of fields and will generate a CSV string. This subroutine will raise an exception if any errors occur.
 
 =cut
 
@@ -78,8 +88,8 @@ sub csv_parse {
     while (
         $str =~ / (?:^|,) 
           (?: ""
+            | ([^",\n]*)(?:\n(?=$)|)
             | "(.*?)(?<![^"]")"
-            | (\d*)
           )
           (?=,|$) /xsg
       )

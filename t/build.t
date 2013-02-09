@@ -1,3 +1,4 @@
+#!perl -T
 use strict;
 use warnings;
 use utf8;
@@ -14,11 +15,6 @@ is(
     csv_build( 1, "two", q{some "quote"} ),
     q{1,"two","some ""quote"""},
     'complex build'
-);
-is(
-    encode_utf8( csv_build( "utf-8", "check ✓" ) ),
-    encode_utf8(q{"utf-8","check ✓"}),
-    'utf-8 ok'
 );
 
 is( csv_build( undef, '' ), q{,""}, 'undef and empty' );

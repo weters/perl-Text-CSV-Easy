@@ -12,17 +12,17 @@ Text::CSV::Easy - Easy CSV parsing and building
 
 =head1 VERSION
 
-Version 0.05
+Version 0.50
 
 =cut
 
-our $VERSION = '0.05';
+our $VERSION = '0.50';
 
 our @EXPORT_OK = qw(csv_build csv_parse);
 
 # used to ensure XS and PP stay in sync.
 our $TCE_VERSION;
-BEGIN { $TCE_VERSION = 1 }
+BEGIN { $TCE_VERSION = 2 }
 
 =head1 SYNOPSIS
 
@@ -35,19 +35,29 @@ BEGIN { $TCE_VERSION = 1 }
 Text::CSV::Easy is a simple module for parsing and building CSV strings. This module itself is
 a lightweight wrapper around L<Text::CSV::Easy_XS> or L<Text::CSV::Easy_PP>.
 
-Integers do not need to be quoted, but strings must be quoted:
+This module conforms to RFC 4180 (L<http://tools.ietf.org/html/rfc4180>) for both parsing and building of CSV lines.
 
-    1,"two","three"     OK
-    "1","two","three"   OK
-    1,two,three         NOT OK
+=over 4
 
-If you need to use a literal quote ("), escape it with another quote:
+=item 1. Use commas to separate fields. Spaces will be considered part of the field.
 
-    "one","some ""quoted"" string"
+ abc,def, ghi        => ( 'abc', 'def', ' ghi' )
 
-There is also a difference between an empty string and an undefined value:
+=item 2. You may enclose fields in quotes.
 
-    "",                 ( '', undef )
+ "abc","def"         => ( 'abc', 'def' )
+
+=item 3. If your field contains a line break, a comma, or a quote, you need to enclose it in quotes. A quote should be escaped with another quote.
+
+ "a,b","a\nb","a""b" => ( 'a,b', "a\nb", 'a"b' )
+
+=item 4. A trailing newline is acceptable.
+
+ abc,def\n           => ( 'abc', 'def' )
+
+=back
+
+When building a string using csv_build, all non-numeric strings will always be enclosed in quotes.
 
 =cut
 
