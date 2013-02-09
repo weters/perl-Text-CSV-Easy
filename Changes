@@ -1,5 +1,8 @@
 Revision history for Text-CSV-Easy
 
+0.04    2013-02-08
+        Fixes an issue when a comman follows an escaped quote.
+
 0.03    2013-02-07
         Better handles empty strings and undef values. 
         Adds tests to ensure XS and PP compatability.
