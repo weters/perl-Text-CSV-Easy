@@ -8,15 +8,15 @@ use Exporter qw(import);
 
 =head1 NAME
 
-Text::CSV::Easy - easy csv parsing and building
+Text::CSV::Easy - Easy CSV parsing and building
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =cut
 
-our $VERSION = '0.4';
+our $VERSION = '0.05';
 
 our @EXPORT_OK = qw(csv_build csv_parse);
 
