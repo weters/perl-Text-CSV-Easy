@@ -12,11 +12,11 @@ Text::CSV::Easy - easy csv parsing and building
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =cut
 
-our $VERSION = '0.03';
+our $VERSION = '0.4';
 
 our @EXPORT_OK = qw(csv_build csv_parse);
 
