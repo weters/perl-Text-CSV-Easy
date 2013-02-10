@@ -39,9 +39,10 @@ This module conforms to RFC 4180 (L<http://tools.ietf.org/html/rfc4180>) for bot
 
  "a,b","a\nb","a""b" => ( 'a,b', "a\nb", 'a"b' )
 
-=item 4. A trailing newline is acceptable.
+=item 4. A trailing newline is acceptable (both LF and CRLF).
 
  abc,def\n           => ( 'abc', 'def' )
+ abc,def\r\n         => ( 'abc', 'def' )
 
 =back
 
@@ -89,9 +90,9 @@ sub csv_parse {
         $str =~ / (?:^|,) 
           (?: ""                # don't want a capture group here
             | "(.*?)(?<![^"]")" # find quote which isn't being escaped
-            | ([^",\n]*)        # try to match an unquoted field
+            | ([^",\r\n]*)      # try to match an unquoted field
           )
-          (?:\n(?=$)|)          # allow a trailing newline only
+          (?:\r?\n(?=$)|)       # allow a trailing newline only
           (?=,|$) /xsg
       )
     {
@@ -99,7 +100,7 @@ sub csv_parse {
 
         # if we don't have a value, we have either an undef or an empty string.
         # "" will be an empty string, otherwise it should be undef.
-        $field ||= ( $& =~ /^,?""$/ ? "" : undef );
+        $field ||= ( $& =~ /^,?""(?:\r?\n)?$/ ? "" : undef );
 
        # track the pos($str) to ensure each field happends immediately after the
        # previous match. also, account for a leading comma when $last_pos != 0
