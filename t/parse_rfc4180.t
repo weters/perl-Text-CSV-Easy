@@ -1,4 +1,4 @@
-#!perl -T
+#!perl
 use strict;
 use warnings FATAL => 'all';
 use 5.010;
@@ -22,30 +22,22 @@ test_values(
     q{,""} => [ undef, '' ],
 );
 
-test_exceptions(
-    q{1,ab"c}      => qr/invalid line: 1,ab"c/,
-    q{1, "bad"}    => qr/invalid line: 1, "bad"/,
-    q{1,"}         => qr/invalid line: 1,"/,
-    qq{abc,de\nfg} => qr/invalid line: abc,de\nfg/,
-    q{"ab"cd,2}    => qr/invalid line: "ab"cd,2/,
-);
-
 done_testing();
 
 sub test_values {
-    my %tests = @_;
-    while ( my ( $csv, $expects ) = each %tests ) {
-        ( my $csv_clean = $csv ) =~ s/\n/\\n/g;
+    my @tests = @_;    # array instead of hash to maintain order
+
+    for ( my $i = 0 ; $i < @tests ; $i += 2 ) {
+        my ( $csv, $expects ) = @tests[ $i, $i + 1 ];
+
+        my $csv_clean = _clean($csv);
         cmp_deeply( [ csv_parse($csv) ], $expects, "$csv_clean parses" );
     }
 }
 
-sub test_exceptions {
-    my %tests = @_;
-
-    while ( my ( $csv, $qr ) = each %tests ) {
-        eval { csv_parse($csv) };
-        ( my $csv_clean = $csv ) =~ s/\n/\\n/g;
-        like( $@, $qr, "$csv_clean raised exception" );
-    }
+sub _clean {
+    my $str = shift;
+    $str =~ s/\n/\\n/g;
+    $str =~ s/\r/\\r/g;
+    return $str;
 }
