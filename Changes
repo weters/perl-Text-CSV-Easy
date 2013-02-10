@@ -1,5 +1,8 @@
 Revision history for Text-CSV-Easy
 
+0.52    2013-02-09
+        POD documentation updates.
+
 0.51    2013-02-09
         Slightly optimizes the regexp for CSV parsing.
         Properly handles CRLF.
