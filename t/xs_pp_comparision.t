@@ -11,7 +11,7 @@ my $ok = eval { require Text::CSV::Easy_XS };
 SKIP: {
     skip "Install Text::CSV::Easy_XS to test", 1 unless $ok;
 
-    my $str = q{1,"one",,"","quote ""goes"" here"};
+    my $str = q{1,0,"one",,"","quote ""goes"" here"};
     cmp_deeply(
         [ Text::CSV::Easy_PP::csv_parse($str) ],
         [ Text::CSV::Easy_XS::csv_parse($str) ],

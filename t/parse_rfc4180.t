@@ -12,7 +12,7 @@ test_values(
     q{abc,def,ghi}               => [qw( abc def ghi )],
     q{"abc","def","ghi"}         => [qw( abc def ghi )],
     q{"abc","""def""","ghi"}     => [qw( abc "def" ghi )],
-    q{1,2,3}                     => [qw( 1 2 3 )],
+    q{0,1,2,3}                     => [qw( 0 1 2 3 )],
     qq{abc,def\n}                => [qw( abc def )],
     qq{abc,"def"\n}              => [qw( abc def )],
     qq{abc,""\n}                 => [ 'abc', '' ],
