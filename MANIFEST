@@ -14,3 +14,5 @@ t/pod.t
 t/pp_csv_build.t
 t/pp_csv_parse.t
 t/xs_pp_comparision.t
+META.yml                                 Module YAML meta-data (added by MakeMaker)
+META.json                                Module JSON meta-data (added by MakeMaker)

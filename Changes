@@ -1,5 +1,8 @@
 Revision history for Text-CSV-Easy
 
+0.53    2014-01-22
+        Fixes an issue with 0 being treated as undef
+
 0.52    2013-02-09
         POD documentation updates.
 
