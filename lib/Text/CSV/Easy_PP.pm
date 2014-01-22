@@ -59,7 +59,8 @@ Takes a list of fields and will generate a CSV string. This subroutine will rais
 sub csv_build {
     my @fields = @_;
     return join ',', map {
-        if ( !defined ) {
+        if ( !defined )
+        {
             '';
         }
         elsif (/^\d+$/) {
@@ -94,30 +95,32 @@ sub csv_parse {
           )
           (?:\r?\n(?=$)|)       # allow a trailing newline only
           (?=,|$) /xsg
-      )
+        )
     {
         my $field = $1 || $2;
 
         # is the field a numeric 0.
         if ( defined($field) && $field =~ /^0+$/ ) {
+
             # don't do anything.
         }
         else {
+
             # if we don't have a value, we have either an undef or an empty string.
             # "" will be an empty string, otherwise it should be undef.
             $field ||= ( $& =~ /^,?""(?:\r?\n)?$/ ? "" : undef );
         }
 
-       # track the pos($str) to ensure each field happends immediately after the
-       # previous match. also, account for a leading comma when $last_pos != 0
+        # track the pos($str) to ensure each field happends immediately after the
+        # previous match. also, account for a leading comma when $last_pos != 0
         croak("invalid line: $str")
-          if pos($str) > $last_pos + length($&) + ( $last_pos != 0 ? 1 : 0 );
+            if pos($str) > $last_pos + length($&) + ( $last_pos != 0 ? 1 : 0 );
 
         $last_pos = pos($str);
 
         if ($field) {
             croak("quote is not properly escaped")
-              if ( $field =~ /(?<!")"(?!")/ );
+                if ( $field =~ /(?<!")"(?!")/ );
 
             # unescape the quotes.
             $field =~ s/""/"/g;

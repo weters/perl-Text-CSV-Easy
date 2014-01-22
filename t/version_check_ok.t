@@ -15,8 +15,7 @@ SKIP: {
 
     require Text::CSV::Easy;
 
-    is( Text::CSV::Easy::module(), 'Text::CSV::Easy_XS',
-        'XS module used when TCE_VERSIONs match' );
+    is( Text::CSV::Easy::module(), 'Text::CSV::Easy_XS', 'XS module used when TCE_VERSIONs match' );
 }
 
 done_testing();

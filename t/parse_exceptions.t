@@ -20,7 +20,7 @@ done_testing();
 sub test_exceptions {
     my @tests = @_;
 
-    for ( my $i = 0 ; $i < @tests ; $i += 2 ) {
+    for ( my $i = 0; $i < @tests; $i += 2 ) {
         my ( $csv, $qr ) = @tests[ $i, $i + 1 ];
         my $csv_clean = _clean($csv);
 

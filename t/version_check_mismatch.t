@@ -15,8 +15,7 @@ SKIP: {
 
     require Text::CSV::Easy;
 
-    is( Text::CSV::Easy::module(), 'Text::CSV::Easy_PP',
-        'PP module used when TCE_VERSIONs do not match' );
+    is( Text::CSV::Easy::module(), 'Text::CSV::Easy_PP', 'PP module used when TCE_VERSIONs do not match' );
 }
 
 done_testing();
