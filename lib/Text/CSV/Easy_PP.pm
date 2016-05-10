@@ -98,6 +98,7 @@ sub csv_parse {
         )
     {
         my $field = $1 || $2;
+        my $match = $&;
 
         # is the field a numeric 0.
         if ( defined($field) && $field =~ /^0+$/ ) {
@@ -108,13 +109,13 @@ sub csv_parse {
 
             # if we don't have a value, we have either an undef or an empty string.
             # "" will be an empty string, otherwise it should be undef.
-            $field ||= ( $& =~ /^,?""(?:\r?\n)?$/ ? "" : undef );
+            $field ||= ( $match =~ /^,?""(?:\r?\n)?$/ ? "" : undef );
         }
 
         # track the pos($str) to ensure each field happends immediately after the
         # previous match. also, account for a leading comma when $last_pos != 0
         croak("invalid line: $str")
-            if pos($str) > $last_pos + length($&) + ( $last_pos != 0 ? 1 : 0 );
+            if pos($str) > $last_pos + length($match) + ( $last_pos != 0 ? 1 : 0 );
 
         $last_pos = pos($str);
 

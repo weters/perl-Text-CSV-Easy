@@ -13,6 +13,8 @@ test_values(
     q{"abc","def","ghi"}         => [qw( abc def ghi )],
     q{"abc","""def""","ghi"}     => [qw( abc "def" ghi )],
     q{0,1,2,3}                   => [qw( 0 1 2 3 )],
+    qq{0,1,2,3\n}                => [qw( 0 1 2 3 )],
+    qq{1,2,3,0\n}                => [qw( 1 2 3 0 )],
     qq{abc,def\n}                => [qw( abc def )],
     qq{abc,"def"\n}              => [qw( abc def )],
     qq{abc,""\n}                 => [ 'abc', '' ],
